@@ -1,4 +1,4 @@
-import serial
+import serial #pyserial module
 import time
 
 # port = '/dev/ttyUSB0'

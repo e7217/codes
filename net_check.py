@@ -51,7 +51,7 @@ def ping_reboot(hostname):
                 os.remove(dirpath + 'net_down.txt')
         with open('./network/net_down.txt', 'a') as f:
             f.write(time.ctime() + ' -------- Down!\n')
-        time.sleep(3)
+        time.sleep(10)
         if check > 10:
             # os.system("sudo ifconfig wlan0 down")
             # os.system("sudo ifconfig wlan0 up")
@@ -65,7 +65,7 @@ def ping_reboot(hostname):
     print 'Ping address ---------------------------- : ' + str(hostname)
 
     # response = os.system("ping -c 1 " + hostname) # linux
-    response = os.system("ping -n 1 " + hostname) # windowns
+    response = os.system("ping -c 1 " + hostname) # windowns
     print '--------------------- checking network ---------------------> ', check
     # and then check the response...
     dirpath = './network/'

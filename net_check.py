@@ -28,11 +28,40 @@ def _setElement():
 
     return str(elm)
 
-def ping_reboot():
+def ping_reboot(hostname):
+
+    def ping_ok(hostname):
+        print hostname, 'is up!'
+        if os.path.isfile(dirpath + 'net_ok.txt'):
+            filesize1 = os.path.getsize("./network/net_ok.txt")
+            if filesize1 > 1048576:
+                os.remove('./network/net_ok.txt')
+        with open('./network/net_ok.txt', 'a') as f:
+            f.write(time.ctime() + ' -------- ok!\n')
+        time.sleep(60)
+        if check > 10:
+            return 0
+        return check
+
+    def ping_down(hostname):
+        print hostname, 'is down!'
+        if os.path.isfile(dirpath + 'net_down.txt'):
+            filesize1 = os.path.getsize(dirpath + "net_down.txt")
+            if filesize1 > 1048576:
+                os.remove(dirpath + 'net_down.txt')
+        with open('./network/net_down.txt', 'a') as f:
+            f.write(time.ctime() + ' -------- Down!\n')
+        time.sleep(3)
+        if check > 10:
+            # os.system("sudo ifconfig wlan0 down")
+            # os.system("sudo ifconfig wlan0 up")
+            os.system("sudo reboot")
+#             print "reboot!!"
+        return check + 1
+
     global check
     # with open('./ping_address.txt', 'r') as fi:
     #     hostname = fi.readline()
-    hostname = _setElement()
     print 'Ping address ---------------------------- : ' + str(hostname)
 
     # response = os.system("ping -c 1 " + hostname) # linux
@@ -43,39 +72,13 @@ def ping_reboot():
     if not (os.path.isdir(dirpath)):
         os.makedirs(os.path.join(dirpath))
     if response == 0:
-        print hostname, 'is up!'
-        if os.path.isfile(dirpath+'net_ok.txt'):
-            filesize1 = os.path.getsize("./network/net_ok.txt")
-            if filesize1 > 1048576:
-                os.remove('./network/net_ok.txt')
-        with open('./network/net_ok.txt', 'a') as f:
-            f.write(time.ctime()+' -------- ok!\n')
-        time.sleep(3)
-        if check > 5:
-            return 0
-        return check
-
+        return ping_ok(hostname)
     else:
-        print hostname, 'is down!'
-        if os.path.isfile(dirpath + 'net_down.txt'):
-            filesize1 = os.path.getsize(dirpath + "net_down.txt")
-            if filesize1 > 1048576:
-                os.remove(dirpath + 'net_down.txt')
-        with open('./network/net_down.txt', 'a') as f:
-            f.write(time.ctime()+' -------- Down!\n')
-        time.sleep(3)
-        if check > 10:
-            # os.system("sudo ifconfig wlan0 down")
-            # os.system("sudo ifconfig wlan0 up")
-            # os.system("sudo reboot")
-            print "reboot!!"
-        return check+1
-
-check = 0
+        return ping_down(hostname)
 
 if __name__ == "__main__":
 
+    hostname = _setElement()
+    check = 0
     while 1:
-
-        check = ping_reboot()
-
+        check = ping_reboot(hostname)

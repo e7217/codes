@@ -20,5 +20,12 @@ while 1:
         time.sleep(settime)
         init_(port, code2)
         time.sleep(settime)
+
+    except KeyboardInterrupt:
+        print 'KeyboardInterrupt'
+        break
+
     except:
         print 'out'
+
+

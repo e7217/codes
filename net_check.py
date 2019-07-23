@@ -3,30 +3,35 @@ import os, time
 import conf_c
 
 def _setElement():
-    fc_path = 'env/connect_env.txt'
 
-    conn = conf_c.conf_connDB(fc_path).connect()
-
-    cursor = conn.cursor()
-    device_ip = conf_c.getdeviceip()
-    print "Device ip is "+device_ip
-    cursor.execute("SELECT checkAddress FROM dbo.setinfo01t WHERE ip_address = %s", device_ip)
-    row = cursor.fetchone()
-    conn.close()
-    print row
-    cnt = 0
-    while row == None:
-        print "There is no {} of ".format('checkAddress')+device_ip
-        time.sleep(10)
+    try :
+        fc_path = 'env/connect_env.txt'
 
         conn = conf_c.conf_connDB(fc_path).connect()
+
         cursor = conn.cursor()
+        device_ip = conf_c.getdeviceip()
+        print "Device ip is "+device_ip
         cursor.execute("SELECT checkAddress FROM dbo.setinfo01t WHERE ip_address = %s", device_ip)
         row = cursor.fetchone()
         conn.close()
-    elm = conf_c.conf_fromDB(fc_path).getconfDB('checkAddress', cursor, row)
+        print row
+        cnt = 0
+        while row == None:
+            print "There is no {} of ".format('checkAddress')+device_ip
+            time.sleep(10)
 
-    return str(elm)
+            conn = conf_c.conf_connDB(fc_path).connect()
+            cursor = conn.cursor()
+            cursor.execute("SELECT checkAddress FROM dbo.setinfo01t WHERE ip_address = %s", device_ip)
+            row = cursor.fetchone()
+            conn.close()
+        elm = conf_c.conf_fromDB(fc_path).getconfDB('checkAddress', cursor, row)
+
+        return str(elm)
+    except Exception as e:
+        print e
+        return '123.123.123.123'
 
 def ping_reboot(hostname):
 
@@ -39,7 +44,7 @@ def ping_reboot(hostname):
         with open('./network/net_ok.txt', 'a') as f:
             f.write(time.ctime() + ' -------- ok!\n')
         time.sleep(60)
-        if check > 10:
+        if check > 100:
             return 0
         return check
 
@@ -59,13 +64,15 @@ def ping_reboot(hostname):
 #             print "reboot!!"
         return check + 1
 
+    if hostname == None:
+        hostname = '123.123.123.123'
     global check
     # with open('./ping_address.txt', 'r') as fi:
     #     hostname = fi.readline()
     print 'Ping address ---------------------------- : ' + str(hostname)
 
-    # response = os.system("ping -c 1 " + hostname) # linux
-    response = os.system("ping -c 1 " + hostname) # windowns
+    response = os.system("ping -c 1 " + hostname) # linux
+    # response = os.system("ping -n 1 " + hostname) # windowns
     print '--------------------- checking network ---------------------> ', check
     # and then check the response...
     dirpath = './network/'

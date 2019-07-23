@@ -2,7 +2,7 @@ import serial #pyserial module
 import time
 
 # port = '/dev/ttyUSB0'
-port = 'com9'
+port = 'com10'
 
 code = 'A00101A2'
 code2 = 'A00100A1'
@@ -12,7 +12,7 @@ def init_(port, code):
     ser.write(code.decode('hex'))
     ser.close()
 
-settime = 1
+settime = 3
 
 while 1:
     try :

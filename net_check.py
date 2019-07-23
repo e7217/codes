@@ -85,7 +85,7 @@ def ping_reboot(hostname):
 
 if __name__ == "__main__":
 
-    hostname = _setElement()
     check = 0
     while 1:
+        hostname = _setElement()
         check = ping_reboot(hostname)

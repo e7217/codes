@@ -10,7 +10,7 @@
 import RPi.GPIO as GPIO
 import time
 
-#hello
+###hello
 
 Relay_Ch1 = 26
 # Relay_Ch2 = 20

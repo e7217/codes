@@ -16,7 +16,8 @@ logger.setLevel(logging.DEBUG)
 
 # logger.disabled = True
 
-fileMaxByte = 1024*1024*1
+# 10MB
+fileMaxByte = 1024*1024*10
 
 fh = RotatingFileHandler('filelog.log', maxBytes=fileMaxByte, backupCount=2)
 fh.setLevel(logging.DEBUG)

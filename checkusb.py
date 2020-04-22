@@ -39,7 +39,7 @@ def checkUSB():
             return True
         else :
             logger.warning('connection : False')
-            # os.system("sudo reboot")
+            os.system("sudo reboot")
             return False
 
 checkUSB()

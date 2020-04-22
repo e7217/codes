@@ -17,7 +17,7 @@ logger.setLevel(logging.DEBUG)
 # 10MB
 fileMaxByte = 1024*1024*10
 
-fh = RotatingFileHandler('filelog.log', maxBytes=fileMaxByte, backupCount=2)
+fh = RotatingFileHandler('usbConnections.log', maxBytes=fileMaxByte, backupCount=2)
 fh.setLevel(0)
 ch = logging.StreamHandler()
 ch.setLevel(logging.DEBUG)
@@ -42,6 +42,6 @@ def checkUSB():
             os.system("sudo reboot")
             return False
 
-checkUSB()
+
 
 

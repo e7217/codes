@@ -45,12 +45,12 @@ try:
 	elif mode == 'a':
 
 		#Control the Channel 1
-		GPIO.output(Relay_Ch1,GPIO.LOW)
-		print("Channel 1:The Common Contact is access to the Normal Open Contact!")
+		GPIO.output(Relay_Ch1,GPIO.HIGH)
+		print("Channel 1:The Common Contact is access to the Normal Closed Contact!")
 		time.sleep(0.5)
 
-		GPIO.output(Relay_Ch1,GPIO.HIGH)
-		print("Channel 1:The Common Contact is access to the Normal Closed Contact!\n")
+		GPIO.output(Relay_Ch1,GPIO.LOW)
+		print("Channel 1:The Common Contact is access to the Normal Open Contact!\n")
 		time.sleep(0.5)
 
 	GPIO.cleanup()

@@ -16,7 +16,7 @@ client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
 
-client.connect(host='', port=)
+client.connect(host='e7217.synology.me', port=1884)
 
 # client.loop_forever()
 client.loop_start()

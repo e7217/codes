@@ -18,6 +18,7 @@ handlers:
     class: logging.handlers.TimedRotatingFileHandler
     formatter: simple
     filename: logs_date/log.log
+    interval: 1
     when: midnight
     backupCount: 31
 loggers:

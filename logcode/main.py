@@ -1,4 +1,15 @@
-import logging, logging.config, yaml
+import os, logging, logging.config, yaml
+
+def createFolder(directory):
+    try:
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+    except OSError:
+        print('Error: Creating directory. ' + directory)
+
+log_dir_lists = ['./logs', './logs_date']
+for dir in log_dir_lists:
+    createFolder(dir)
 
 with open('config.yaml', 'rb') as fr:
     config = yaml.load(fr, Loader=yaml.FullLoader)

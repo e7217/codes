@@ -11,13 +11,19 @@ handlers:
   file:
     class: logging.handlers.RotatingFileHandler
     formatter: simple
-    filename: log.log
+    filename: logs/log.log
     maxBytes: 1024
     backupCount: 3
+  datefile:
+    class: logging.handlers.TimedRotatingFileHandler
+    formatter: simple
+    filename: logs_date/log.log
+    when: midnight
+    backupCount: 31
 loggers:
   simpleExample:
     level: DEBUG
-    handlers: [console, file]
+    handlers: [console, file, datefile]
     propagate: no
 root:
   level: DEBUG

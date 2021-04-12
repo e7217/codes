@@ -1,4 +1,8 @@
-import os, logging, logging.config, yaml
+# internal modules
+import os, logging, logging.config
+
+# external modules
+import yaml
 
 
 def create_folder(directory):

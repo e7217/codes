@@ -9,10 +9,10 @@ from logging.handlers import RotatingFileHandler
 #     datefmt='%m/%d/%Y %I:%M:%S %p',
 #     level=logging.DEBUG)
 #
-logger = logging.getLogger('test logger')
+logger = logging.getLogger('test logcode')
 logger.setLevel(logging.DEBUG)
 
-# logger.disabled = True
+# logcode.disabled = True
 
 # 10MB
 fileMaxByte = 1024*1024*10
